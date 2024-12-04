@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Kosovo</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        nav {
+            background: rgba(30, 58, 138, 0.8);
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        nav a {
+            color: #fff;
+            margin-left: 20px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #f77f00;
+        }
+
+        .hero {
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1s ease-in-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #f77f00;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background 0.3s;
+        }
+
+        .hero button:hover {
+            background: #d65a00;
+        }
+
+        section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .intro {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .destinations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding-top: 40px;
+        }
+
+        .destination-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .destination-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .destination-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .destination-card h3 {
+            padding: 15px;
+            background: #1e3a8a;
+            color: #fff;
+            margin: 0;
+        }
+
+        .destination-card p {
+            padding: 15px;
+            color: #555;
+        }
+
+        .contact-section {
+            padding: 40px;
+            background: #f1f1f1;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1e3a8a;
+        }
+
+        .contact-section form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-section input, .contact-section textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .contact-section button {
+            background: #f77f00;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background 0.3s;
+        }
+
+        .contact-section button:hover {
+            background: #d65a00;
+        }
+
+        .rating-table {
+            max-width: 800px;
+            margin: 40px auto;
+            border-collapse: collapse;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .rating-table th, .rating-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .rating-table th {
+            background: #1e3a8a;
+            color: #fff;
+        }
+
+        .rating-table td input {
+            width: 50px;
+            text-align: center;
+        }
+
+        footer {
+            background: #1e3a8a;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div><strong>Explore Kosovo</strong></div>
+    <div>
+        <a href="#home">Home</a>
+        <a href="#destinations">Destinations</a>
+        <a href="#contact">Contact</a>
+    </div>
+</nav>
+
+<!-- Hero Section with Slideshow -->
+<section class="hero" id="home">
+    <div>
+        <h1>Discover Kosovo</h1>
+        <button>Start Your Adventure</button>
+    </div>
+</section>
+
+<!-- Slideshow JavaScript -->
+<script>
+    const heroSection = document.querySelector('.hero');
+    const images = ['PRISHTINA.jpg', 'PEJA.jpg', 'FERIZAJ.jpg', 'GJAKOVA.jpg', 'MITROVICA.jpg', 'PRIZRENI.jpg'];
+    let currentImageIndex = 0;
+
+    function changeBackgroundImage() {
+        heroSection.style.backgroundImage = `url('${images[currentImageIndex]}')`;
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+    }
+
+    setInterval(changeBackgroundImage, 3000); // Change image every 3 seconds
+    changeBackgroundImage(); // Initial call to set first image
+</script>
+
+<!-- Introduction Section -->
+<section>
+    <div class="intro">
+        <h2>Welcome to Kosovo</h2>
+        <p>In the heart of the Balkans, Kosovo offers a vibrant blend of history, culture, and natural beauty. From the majestic Sharr Mountains to the lively capital of Pristina, this region is perfect for those seeking authentic travel experiences.</p>
+    </div>
+</section>
+
+<!-- Destinations Section -->
+<section id="destinations">
+    <h2>Top Destinations</h2>
+    <div class="destinations">
+        <div class="destination-card">
+            <img src="PRISHTINA.jpg" alt="Prishtina">
+            <h3>Prishtina</h3>
+            <p>Experience the vibrant cultural scene and historic landmarks like the iconic Newborn Monument.</p>
+        </div>
+        <div class="destination-card">
+            <img src="PEJA.jpg" alt="Peja">
+            <h3>Peja</h3>
+            <p>Perfect for nature lovers, featuring the breathtaking Rugova Canyon and adventurous outdoor activities.</p>
+        </div>
+        <div class="destination-card">
+            <img src="MITROVICA.jpg" alt="Mitrovica">
+            <h3>Mitrovica</h3>
+            <p>A city known for its rich history and diverse community.</p>
+        </div>
+        <div class="destination-card">
+            <img src="FERIZAJ.jpg" alt="Ferizaj">
+            <h3>Ferizaj</h3>
+            <p>Close to the renowned Gadime Marble Cave and a hub of industrial growth.</p>
+        </div>
+        <div class="destination-card">
+            <img src="GJAKOVA.jpg" alt="Gjakova">
+            <h3>Gjakova</h3>
+            <p>Home to the historic Old Bazaar, offering a glimpse into traditional Kosovar life.</p>
+        </div>
+        <div class="destination-card">
+            <img src="PRIZRENI.jpg" alt="Prizren">
+            <h3>Prizren</h3>
+            <p>A cultural hub with Ottoman-era architecture, known for its annual film festival.</p>
+        </div>
+    </div>
+</section>
+
+<!-- City Rating Table with Submit Button -->
+<section>
+    <
+<!-- City Rating Table with Centered Submit Button -->
+<section>
+    <h2 style="text-align: center;">Rate the Cities</h2>
+    <form onsubmit="submitRatings(event)" class="rating-form">
+        <table class="rating-table">
+            <thead>
+                <tr>
+                    <th>City</th>
+                    <th>Your Rating (1-5)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Prishtina</td>
+                    <td><input type="number" name="prishtina" min="1" max="5" placeholder="1-5" required></td>
+                </tr>
+                <tr>
+                    <td>Peja</td>
+                    <td><input type="number" name="peja" min="1" max="5" placeholder="1-5" required></td>
+                </tr>
+                <tr>
+                    <td>Mitrovica</td>
+                    <td><input type="number" name="mitrovica" min="1" max="5" placeholder="1-5" required></td>
+                </tr>
+                <tr>
+                    <td>Ferizaj</td>
+                    <td><input type="number" name="ferizaj" min="1" max="5" placeholder="1-5" required></td>
+                </tr>
+                <tr>
+                    <td>Gjakova</td>
+                    <td><input type="number" name="gjakova" min="1" max="5" placeholder="1-5" required></td>
+                </tr>
+                <tr>
+                    <td>Prizren</td>
+                    <td><input type="number" name="prizren" min="1" max="5" placeholder="1-5" required></td>
+                </tr>
+            </body>
+        </table>
+        <div style="text-align: center; margin-top: 20px;">
+            <button type="submit">Submit Rating</button>
+        </div>
+    </form>
+</section>
+
+<!-- JavaScript for Handling Ratings Submission -->
+<script>
+    function submitRatings(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const ratings = {};
+        formData.forEach((value, key) => {
+            ratings[key] = value;
+        });
+        console.log("User Ratings:", ratings);
+        alert("Thank you for submitting your ratings!");
+        // You could also send this data to a server here
+    }
+</script>
+
+<!-- Contact Section -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head></head><body>
+
+
+    
+    
+    
+    
+    
+
+
+
+
+<nav>
+    <div><strong>Explore Kosovo</strong></div>
+    <div>
+        <a rel="noopener" href="#home">Home</a>
+        <a rel="noopener" href="#destinations">Destinations</a>
+        <a rel="noopener" href="#contact">Contact</a>
+    </div>
+</nav>
+
+
+<section class="contact-section">
+    <h2>Contact Us</h2>
+    
+        
+        
+        
+        Send Message
+    
+
+    
+    <h3 style="text-align: center;color: #fff;margin-top: 40px;">For more information. Visit us!</h3>
+    
+    
+    <div class="map-container">
+        
+        <iframe class="d2l-xspl-box" src="https://mycourses.rit.edu/d2l/lp/externalUrls/xspl?url=https%3a%2f%2fwww.google.com%2fmaps%2fembed" data-original-html="&lt;iframe src=&quot;https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2934.3649648881856!2d21.1922622!3d42.6703355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x135498cd75256c27%3A0xbbf87d6b640faf83!2sRIT%20Kosovo%20(A.U.K)!5e0!3m2!1sen!2s!4v1699291938202!5m2!1sen!2s&quot; allowfullscreen=&quot;&quot;&gt;
+        &lt;/iframe&gt;" frameborder="0" scrolling="no" allowfullscreen></iframe>
+
+    </div>
+</section>
+
+
+<footer>
+    <p>&#169; 2024 Explore Kosovo. All rights reserved.</p>
+</footer>
+
+
+
+<script type="module" src="https://s.brightspace.com/lib/bsi/2024.10.207/unbundled/mathjax.js"></script><script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
+						if (document.querySelector('math') || /\$\$|\\\(|\\\[|\\begin{|\\ref{|\\eqref{/.test(document.body.innerHTML)) {
+							document.querySelectorAll('mspace[linebreak="newline"]').forEach(elm => {
+								elm.setAttribute('style', 'display: block; height: 0.5rem;');
+							});
+
+							window.D2L.MathJax.loadMathJax({
+								outputScale: 1.5,
+								renderLatex: false,
+								enableMML3Support: false
+							});
+						}
+					});</script><script type="module" src="https://s.brightspace.com/lib/bsi/2024.10.207/unbundled/prism.js"></script><script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
+					document.querySelectorAll('.d2l-code').forEach(code => {
+						window.D2L.Prism.formatCodeElement(code);
+					});
+				});</script><script type="module" src="https://s.brightspace.com/lib/bsi/2024.10.207/unbundled/embeds.js"></script><script type="text/javascript">document.addEventListener('DOMContentLoaded', function() {
+					window.D2L.EmbedRenderer.renderEmbeds(document.body);
+				});</script>
+</body></html>
